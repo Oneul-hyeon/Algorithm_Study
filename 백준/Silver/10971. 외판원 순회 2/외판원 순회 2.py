@@ -14,15 +14,18 @@ def backtracking() :
     # 2-1. 종료 조건 설정 : 리스트의 길이가 n인 경우
     if len(cost) == n :
         # 첫 번째 인덱스 값 append
+        cost.append(cost[0])
         total_cost = 0
-        for i in range(n-1) :
+        for i in range(n) :
             if array[cost[i]][cost[i+1]] : total_cost += array[cost[i]][cost[i+1]]
             # 한 번이라도 0이 나올 경우 return
-            else : return
-        if array[cost[-1]][cost[0]] == 0 : return
-        else : total_cost += array[cost[-1]][cost[0]]
+            else : 
+                cost.pop()
+                return
         # 최솟값이면 저장
         if total_cost < min_cost: min_cost = total_cost
+        # cost 마지막 값 빼기
+        cost.pop()
         return
 
     for i in range(n) :
