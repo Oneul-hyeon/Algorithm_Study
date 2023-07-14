@@ -6,8 +6,7 @@ def check(s, e) :
         schedule[i] += 1
 
 n = int(input())
-array = [list(map(int, input().split())) for _ in range(n)]
-array.sort(key = lambda x : [x[0], -x[1]])
+array = sorted([list(map(int, input().split())) for _ in range(n)])
 schedule = [0] * 366
 answer = 0
 
