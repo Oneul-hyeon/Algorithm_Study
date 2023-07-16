@@ -8,7 +8,6 @@ def dfs(sub, station, count) :
         min_count = min(min_count, count)
         return
     if count >= min_count : return
-    if False not in visited : return
 
     for next in subway[sub] :
         for i in range(1, n+1) :
