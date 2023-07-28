@@ -11,12 +11,14 @@ def dfs(m, c) :
         return
     # 1-2.
     for i in range(len(m)) :
+        # i번째 인덱스 이전에 처리된 경우 다음 숫자판 조정
         if m[:i] == goal[:i] :
             for j in range(len(m)) :
-                    if m[i] != goal[i] and m[j] == goal[i] :
-                        m[i], m[j] = m[j], m[i]
-                        dfs(m, c - 1)
-                        m[i], m[j] = m[j], m[i]
+                # 상금 조정
+                if m[i] != goal[i] and m[j] == goal[i] :
+                    m[i], m[j] = m[j], m[i]
+                    dfs(m, c - 1)
+                    m[i], m[j] = m[j], m[i]
 
 test_case = int(input())
 for t in range(1, test_case+1) :
