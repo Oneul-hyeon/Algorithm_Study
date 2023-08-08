@@ -16,10 +16,8 @@ while left <= right :
     for c in array :
         cost += mid if mid <= c else c
     # 2-3. 배정되는 예산이 총 예산보다 작을 경우
-    if cost < m: left = mid + 1
+    if cost <= m: left = mid + 1
     # 2-3. 배정되는 예산이 총 예산보다 클 경우
     elif cost > m: right = mid - 1
-    # 2-4. 배정되는 예산이 총 예산과 같을 경우
-    else : right = mid; break
 # 3. 결과 출력
 print(right)
