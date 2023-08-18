@@ -9,7 +9,8 @@ def backtracking(number, lst) :
         c = int(''.join(number))
         if c < b :
             ans = max(ans, c)
-        return
+            print(ans)
+            sys.exit()
     # 1-2.
     for i in range(len(lst)) :
         # 첫 글자가 0인 경우 continue
