@@ -12,11 +12,11 @@ now_e = 0
 for i in range(n) :
     s, e = info[i]
     # 4-1. 시작 위치가 이미 덮여있을 경우
-    if now_e >= s : s = now_e
+    if now_e >= s : s = now_e + 1
     # 4-2. 널빤지 개수 카운트
     cnt = math.ceil((e - s) / l)
     ans += cnt
-    # 4-3. 널빤지의 마지막 위치 재정의
-    now_e = s + l * cnt
+    # 4-3. 널빤지의 마지막 위치 설정
+    now_e = s + l * cnt - 1
 # 5. 결과 출력
 print(ans)
