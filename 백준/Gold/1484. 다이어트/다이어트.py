@@ -11,7 +11,7 @@ while True :
     calculation = math.sqrt(g + remember**2)
     if int(calculation) == calculation : ans.append(int(calculation))
     # 2-2. 현재 몸무게 값보다 기억하는 몸무게 값이 더 커지는 경우 탈출
-    if int(calculation) <= remember : break
+    if int(calculation) == remember : break
     # 2-3. 기억하는 몸무게 값 추가
     remember += 1
 # 3. 결과 출력
