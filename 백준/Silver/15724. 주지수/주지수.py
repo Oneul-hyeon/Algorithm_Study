@@ -6,15 +6,10 @@ graph = [[0 for _ in range(m+1)]] + [[0] + list(map(int, input().split())) for _
 # 1. 누적합 배열 생성
 prefix_sum = graph.copy()
 # 2. 누적합 생성
-# 2-1. 열 별
-for j in range(1, m+1) :
-    for i in range(1, n+1) :
-        prefix_sum[i][j] += prefix_sum[i-1][j]
-# 2-2. 행 별
-for i in range(1, n+1) :
-    for j in range(1, m+1) :
-        prefix_sum[i][j] += prefix_sum[i][j-1]
-
+for i in range(1, n + 1) :
+    for j in range(1, m + 1) :
+        prefix_sum[i][j] += prefix_sum[i-1][j] + prefix_sum[i][j-1] - prefix_sum[i-1][j-1]
+        
 t = int(input())
 for _ in range(t) :
     x1, y1, x2, y2 = map(int, input().split())
