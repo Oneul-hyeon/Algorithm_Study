@@ -43,8 +43,8 @@ def solution(operations):
                     if max_dict[num] > 0 : max_dict[num] -= 1
                     # 최소 힙에서 추출한 최솟값이 최대힙에 있는 경우
                     if min_dict[num] > max_dict[num] : break
+                    
     # 4. 최소, 최대 힙 병합
-    for i in range(len(max_heap)) : max_heap[i] *= -1
-    last_heap = sorted(set(max_heap) & set(min_heap))
+    last_heap = set(min_heap) & set(list(map(lambda x : -x, max_heap)))
     # 5. 결과 출력
-    return [0, 0] if not last_heap else [last_heap[-1], last_heap[0]]
+    return [0, 0] if not last_heap else [max(last_heap), min(last_heap)]
