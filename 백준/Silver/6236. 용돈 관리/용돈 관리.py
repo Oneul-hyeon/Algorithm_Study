@@ -1,24 +1,32 @@
 import sys
 input = sys.stdin.readline
 
-n, m = map(int, input().split())
-array = [int(input()) for _ in range(n)]
-# 1. 이분탐색을 위한 left, right 변수 설정
-left, right = max(array), sum(array)
-# 2.
-while left <= right :
-    # 2-1. mid 값 설정
-    mid = (left + right) // 2
-    # 2-2. 인출 횟수 구하기
-    now = 0
-    count = 0
-    for money in array :
-        if now - money >= 0 : now -= money
+def solution() :
+    n, m = map(int, input().split())
+    array = [int(input()) for _ in range(n)]
+    # 1. left, right 설정
+    left, right = max(array), sum(array)
+    # 2.
+    while left <= right :
+        # 2-1. mid 값 설정
+        mid = (left + right) // 2
+        # 2-2. 인출 횟수 카운트
+        cnt = 0
+        now = 0
+        for money in array :
+            # 2-2-1. 돈이 부족할 경우
+            if now < money :
+                now = mid - money
+                cnt += 1
+            # 2-2-2. 돈이 부족하지 않을 경우
+            else :
+                now -= money
+        # 2-3. 최소금액을 구하는 것이므로
+        if cnt <= m :
+            right = mid - 1
         else :
-            count += 1
-            now = mid - money
-    # 2-3. 인출 횟수가 M보다 크거나 같은 경우
-    if count > m : left = mid + 1
-    else : right = mid - 1
-# 3. 결과 출력
-print(left)
+            left = mid + 1
+    # 3. 결과 출력
+    print(left)
+if __name__ == "__main__":
+    solution()
