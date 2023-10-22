@@ -24,13 +24,15 @@ def solution(n, k, graph) :
             return
         # 2-2.
         for i in range(n) :
-            if i in route : continue
+            if visited[i] : continue
             # 2-2-1. 행성 경로 리스트에 행성 번호 삽입
             route.append(i)
+            visited[i] = True
             # 2-2-2. 백트래킹 실행
             backtracking(cnt + 1)
             # 2-2-3. 행성 경로 리스트에 행성 번호 제거
             route.pop()
+            visited[i] = False
 
     # 3. 플로이드-워셜을 통해 행성 간 최소 시간 재정의
     for z in range(n) :
@@ -40,6 +42,8 @@ def solution(n, k, graph) :
                     graph[a][b] = min(graph[a][b], graph[a][z] + graph[z][b])
     # 4. 행성 이동 경로 리스트 생성
     route = [k]
+    visited = [False for _ in range(n)]
+    visited[k] = True
     # 5. 백트래킹 실행
     backtracking(1)
     # 6. 결과 출력
