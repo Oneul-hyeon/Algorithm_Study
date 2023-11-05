@@ -8,57 +8,36 @@ def solution(r, c, k, graph) :
     else :
         # 2.
         for ans in range(1, 101) :
-            # 2-1. R 연산이 가능한 경우
-            if len(graph) >= len(graph[0]) :
-                # 2-1-1.
-                for i in range(len(graph)) :
-                    line = graph[i]
-                    # 카운팅
-                    # 정렬
-                    counter = sorted(Counter(line).items(), key = lambda x : [x[1], x[0]])
-                    ins_array = []
-                    for x, y in counter :
-                        if x :
-                            ins_array += [x, y]
-                    # 결과값 삽입
-                    graph[i] = ins_array
-                # 2-1-2. 열의 최대 길이 구하기
-                max_len = max([len(line) for line in graph])
-                # 2-1-3. 제로 패딩
-                for i in range(len(graph)) :
-                    graph[i] += [0 for _ in range(max_len - len(graph[i]))]
-                    if max_len > 100 :
-                        graph[i] = graph[i][:100]
-            # 2-2. C 연산이 가능한 경우
-            elif len(graph) < len(graph[0]) :
-                # 2-2-1. 행 / 열 뒤집은 배열 생성
+            col = False
+            # 2-1. C 연산의 경우 행 / 열 뒤집기
+            if len(graph) < len(graph[0]) :
                 graph = list(zip(*graph))
-                # 2-2-2.
-                for i in range(len(graph)) :
-                    line = graph[i]
-                    # 카운팅
-                    # 정렬
-                    counter = sorted(Counter(line).items(), key=lambda x: [x[1], x[0]])
-                    ins_array = []
-                    for x, y in counter :
-                        if x :
-                            ins_array += [x, y]
-                    # 결과값 삽입
-                    graph[i] = ins_array
-                # 2-2-2. 열의 최대 길이 구하기
-                max_len = max([len(line) for line in graph])
-                # 2-2-3. 제로 패딩
-                for i in range(len(graph)) :
-                    graph[i] += [0 for _ in range(max_len - len(graph[i]))]
-                    if max_len > 100 :
-                        graph[i] = graph[i][:100]
-
-                # 2-3. 행/열 변경
-                graph = list(zip(*graph))
-            # 2-4. (r, c)에 k값이 있는 경우
+                col = True
+            # 2-2.
+            for i in range(len(graph)) :
+                line = graph[i]
+                # 카운팅
+                # 정렬
+                counter = sorted(Counter(line).items(), key=lambda x: [x[1], x[0]])
+                # 결과값 삽입
+                ins_array = []
+                for x, y in counter :
+                    if x : ins_array += [x, y]
+                graph[i] = ins_array
+            # 2-3. 열의 최대 길이 구하기
+            max_len = max([len(line) for line in graph])
+            # 2-4. 제로 패딩
+            for i in range(len(graph)) :
+                graph[i] += [0 for _ in range(max_len - len(graph[i]))]
+                if max_len > 100 :
+                    graph[i] = graph[i][:100]
+            # 2-5. C 연산의 경우 원상복구
+            if col : graph = list(zip(*graph))
+            # 2-6. (r, c)에 k값이 있는 경우
             if r <= len(graph) and c <= len(graph[0]) and graph[r-1][c-1] == k :
                 print(ans)
                 break
+        # 3. -1 출력
         else : print(-1)
 
 if __name__ == "__main__":
