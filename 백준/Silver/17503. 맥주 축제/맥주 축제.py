@@ -6,20 +6,22 @@ def solution(n, m, k, information):
     # 1. 도수를 기준으로 오름차순 정렬
     information.sort(key = lambda x : x[1])
     # 2. 힙 리스트, 선호도 합 변수 생성
-    heap, summation = [], 0
+    heap, summation, length = [], 0, 0
     # 3.
     for v, c in information :
         # 3-1. 힙 리스트의 길이가 n보다 작을 경우
-        if len(heap) < n :
+        if length < n :
             # 힙 리스트에 정보 삽입
             heappush(heap, [v, c])
             # 선호도 합 업데이트
             summation += v
+            length += 1
         # 3-2. 힙 리스트의 길이가 n과 같을 경우
-        if len(heap) == n :
+        if length == n :
             # 선호도가 기준보다 낮을 경우
             if summation < m :
                 summation -= heappop(heap)[0]
+                length -= 1
             # 선호도가 기준보다 같거나 높을 경우
             else :
                 print(max(list(zip(*heap))[1]))
