@@ -3,7 +3,7 @@ from heapq import heappush, heappop
 input = sys.stdin.readline
 def solution(n, m):
     # 1. 다익스트라 함수 정의
-    def dajikstra(start) :
+    def dijkstra(start) :
         min_route = []
         # 1-1. 거리 정보 리스트 생성
         distance = [float('inf') for _ in range(n+1)]
@@ -41,7 +41,7 @@ def solution(n, m):
         graph[a].append((b, t))
         graph[b].append((a, t))
     # 3. 최단 시간, 최단 경로 구하기
-    min_time, min_route = dajikstra(1)
+    min_time, min_route = dijkstra(1)
     # 4. 경로가 없을 경우 -1 출력
     if not min_route : print(-1)
     # 5. 이외의 경우
@@ -62,14 +62,14 @@ def solution(n, m):
                     del graph[b][idx]
                     break
             # 경로가 제거되었을 경우의 최단 시간 업데이트
-            t, _ = dajikstra(1)
+            t, _ = dijkstra(1)
             update_max_time = max(update_max_time, t)
             # 경로 추가
             graph[a].append(info_a)
             graph[b].append(info_b)
     # 6. 결과 출력
     print(-1 if update_max_time == float('inf') else update_max_time - min_time)
-    
+
 if __name__ == "__main__" :
     n, m = map(int, input().split())
     solution(n, m)
