@@ -1,4 +1,4 @@
-answer = []
+
 def solution(user_id, banned_id):
     # 1. 백트래킹 함수 정의
     def backtracking(idx, combination) :
@@ -18,7 +18,7 @@ def solution(user_id, banned_id):
                 # 다음 아이디가 현재 아이디 목록에 없을 경우 백트래킹 실행
                 if id not in combination :
                     backtracking(idx+1, combination + [id])
-    
+    answer = []
     n = len(banned_id)
     # 2. 불량 사용자로 가능한 아이디 리스트 생성
     possible_id = []
