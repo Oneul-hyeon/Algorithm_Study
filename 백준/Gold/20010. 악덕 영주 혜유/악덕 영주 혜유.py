@@ -22,23 +22,25 @@ def solution(n, k, costs) :
     # 3. DFS 함수 정의
     def dfs(node, visited, dist) :
         global max_distance
+        # 3-1. 최대 거리 업데이트
         if dist > max_distance :
             max_distance = dist
+        # 3-2.
         for next, c in route[node] :
             # 방문하지 않았을 경우
             if not visited & (1 << next) :
                 # dfs 실행
-                dfs(next, visited | ( 1 << next), dist + c)
+                dfs(next, visited | (1 << next), dist + c)
 
-    # 3. 비용을 기준으로 오름차순 정렬
+    # 4. 비용을 기준으로 오름차순 정렬
     costs.sort(key = lambda x : x[2])
-    # 4. 루트 노드 리스트 생성
+    # 5. 루트 노드 리스트 생성
     roots = list(range(n+1))
-    # 5.
+    # 6.
     distance = 0
     route = defaultdict(list)
     for x, y, cost in costs :
-        # 5-1. 사이클 테이블 확인
+        # 6-1. 사이클 테이블 확인
         if Find(x) != Find(y) :
             route[x].append((y, cost))
             route[y].append((x, cost))
@@ -49,10 +51,10 @@ def solution(n, k, costs) :
     for start in route.keys() :
         # 7-1. DFS 실행
         dfs(start, (1 << start), 0)
-
-    # 6. 결과 출력
+    # 8. 결과 출력
     print(distance)
     print(max_distance)
+    
 if __name__ == "__main__" :
     n, k = map(int, input().split())
     costs = [list(map(int, input().split())) for _ in range(k)]
