@@ -2,11 +2,11 @@ import sys
 input = sys.stdin.readline
 
 m = int(input())
-S = 0
+S, all_S = 0, (1 << 20) - 1
 for _ in range(m) :
     command = input().rstrip()
     if command == 'all' :
-        S = ( 1 << 20 ) - 1
+        S = all_S
     elif command == 'empty' :
         S = 0
     else :
