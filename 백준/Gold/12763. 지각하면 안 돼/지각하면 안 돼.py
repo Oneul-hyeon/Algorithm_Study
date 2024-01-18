@@ -24,7 +24,7 @@ def dijkstra(start) :
             # 돈 또는 시간이 하나라도 많이 남을 경우
             if next_m < information[next][0] or next_t < information[next][1] :
                 # 시간이 절약될 경우
-                if next_m < information[next][0] or (next_m == information[next][0] and next_t < information[next][1]): information[next] = [next_m, next_t]
+                if next_m < information[next][0] : information[next] = [next_m, next_t]
             # 힙에 정보 삽입
             heappush(heap, (next_m, next_t, next))
 
