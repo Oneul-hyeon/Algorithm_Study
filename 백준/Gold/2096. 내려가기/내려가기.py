@@ -2,25 +2,23 @@ import sys
 input = sys.stdin.readline
 
 n = int(input())
-# 1. 첫 번째 줄 먼저 입력받기
-max_ans = list(map(int, input().split()))
-min_ans = max_ans[:]
-# 2.
+idx_0, idx_1, idx_2 = map(int, input().split())
+
+# 1. dp 생성
+dp = [ [] for _ in range(2)]
+# 2. 초기값 설정
+dp[0] = [idx_0, idx_1, idx_2]
+dp[1] = [idx_0, idx_1, idx_2]
+# 3.
 for _ in range(n-1) :
-    # 2-1. 한 라인 입력받기
-    max_dp = list(map(int, input().split()))
-    min_dp = max_dp[:]
-    # 2-2. 해당 라인의 인덱스 별 최대, 최소 점수 구하기
-    max_dp[0] += max(max_ans[0:2])
-    max_dp[1] += max(max_ans[0:3])
-    max_dp[2] += max(max_ans[1:3])
+    # 3-1. 행 입력 받기
+    idx_0, idx_1, idx_2 = map(int, input().split())
+    # 3-2. 최대 점수 dp 처리
+    # 3-2-1. 점화식에 따라 처리
+    dp[0][0], dp[0][1], dp[0][2] = idx_0 + max(dp[0][0], dp[0][1]), idx_1 + max(dp[0][0], dp[0][1], dp[0][2]), idx_2 + max(dp[0][1], dp[0][2])
 
-    min_dp[0] += min(min_ans[0:2])
-    min_dp[1] += min(min_ans[0:3])
-    min_dp[2] += min(min_ans[1:3])
-
-    # 2-3. DP 배열 값 복사
-    max_ans = max_dp[:]
-    min_ans = min_dp[:]
-# 3. 결과 출력
-print(f'{max(max_ans)} {min(min_ans)}')
+    # 3-3. 최소 점수 dp 처리
+    # 3-3-1. 점화식에 따라 처리
+    dp[1][0], dp[1][1], dp[1][2] = idx_0 + min(dp[1][0], dp[1][1]), idx_1 + min(dp[1][0], dp[1][1], dp[1][2]), idx_2 + min(dp[1][1], dp[1][2])
+# 4. 결과 출력
+print(f"{max(dp[0])} {min(dp[1])}")
