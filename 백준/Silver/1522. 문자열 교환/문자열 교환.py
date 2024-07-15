@@ -1,6 +1,9 @@
 import sys
 input = sys.stdin.readline
 
+import sys
+input = sys.stdin.readline
+
 string = input().strip()
 
 # 1. 윈도우 사이즈 설정
@@ -10,7 +13,6 @@ if window_size == 0 : print(0)
 # 3. 이외의 경우
 else :
     # 3-1. 순환 문자열 생성
-    # if window_size > 1 : string = string[-(window_size-1) :] + string
     string += string
     # 3-2. 문자별 카운트 딕셔너리 생성
     count = {"a" : 0, "b" : 0}
