@@ -2,10 +2,8 @@ import sys
 input = sys.stdin.readline
 
 n = int(input())
-if n == 0 :
-    print(0)
-    exit()
 dices = [list(map(int, input().split())) for _ in range(n)]
+
 # 1. 주사위 아랫면-윗변 대치 딕셔너리 생성
 opposite_side = {0 : 5,
                  1 : 3,
@@ -17,14 +15,10 @@ opposite_side = {0 : 5,
 ans = -int(1e9)
 # 3.
 for up_ in range(6) :
+    summation = 0
     # 3-1. 첫 번째 주사위의 윗면 값 설정
-    up = dices[0][up_]
-    down_ = opposite_side[up_]
-    for number in range(6, 0, -1):
-        if number not in (dices[0][down_], dices[0][up_]):
-            summation = number
-            break
-    for dice in dices[1:] :
+    for idx, dice in enumerate(dices) :
+        if idx == 0 : up = dice[up_]
         # 3-1-1. 현재 주사위의 아랫면 위치 추출
         down_ = dice.index(up)
         # 3-1-2. 현재 주사위의 윗면 위치 추출
