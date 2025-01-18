@@ -1,39 +1,32 @@
-ans = int(1e9)
+from collections import deque
+
 def solution(begin, target, words):
-    # 1. 다른 알파벳 개수 체크 함수 정의
+    # 1. 단어 변환 체크 함수 정의
     def check(word1, word2) :
-        cnt = 0
-        # 1-1. 
-        for i in range(l) :
-            # 두 알파벳이 다를 경우 카운팅
-            if word1[i] != word2[i] :
-                cnt += 1
-        # 1-2. 다른 알파벳 개수 반환
-        return cnt
-    # 2. DFS 함수 정의
-    def dfs(now, cnt) :
-        global ans
-        # 2-1. 종료 조건 설정
-        if now == target :
-            ans = min(ans, cnt)
-        # 2-2.
-        for i in range(len(words)) :
-            # 다음 단어로 변환한 적이 없고 다른 알파벳이 1개인 경우
-            if not visited[i] and check(now, words[i]) == 1 :
-                # 방문 처리
-                visited[i] = True
-                # DFS 실행
-                dfs(words[i], cnt + 1)
-                # 방문 해제
-                visited[i] = False
-    # 3. 변환할 수 없는 경우 0 출력
-    if target not in words : return 0
-    else :
-        # 4. 단어 길이 변수 생성
-        l = len(begin)
-        # 5. 방문 여부 리스트 생성
-        visited = [False for _ in range(len(words))]
-        # 6. DFS 실행
-        dfs(begin, 0)
-        # 7. 결과 리턴
-        return ans
+        # 1-1. 카운트 변수 생성
+        cnt=0
+        # 1-2. 서로 다른 문자 수 체크
+        for idx in range(length) :
+            if word1[idx] != word2[idx] : cnt += 1
+        # 1-3. 서로 다른 문자 수가 1개일 경우 True, 이외의 경우 False return
+        return True if cnt == 1 else False
+    length=len(begin)
+    # 2. 큐 생성 후 (begin, 0, 0) 삽입
+    queue = deque([])
+    queue.append((begin, 0, 0))
+    # 3.
+    while queue :
+        # 3-1. 큐에서 값 반환
+        now, visited, step = queue.popleft()
+        # 3-2.
+        for idx, next in enumerate(words) :
+            # 3-2-1. 다음 단어로 변환한 적이 없으면서 다음 문자로 변환이 가능한 경우
+            if not visited & (1 << idx) and check(now, next) :
+                # 다음 문자가 target인 경우 단계 수 + 1 return
+                if next == target : return step + 1
+                # 이외의 경우 큐에 정보 삽입
+                else :
+                    visited |= (1 << idx)
+                    queue.append((next, visited, step + 1))
+    # 4. 0 return
+    return 0
