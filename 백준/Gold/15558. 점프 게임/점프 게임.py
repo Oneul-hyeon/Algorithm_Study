@@ -16,7 +16,7 @@ def checker() -> Annotated[int, "0(클리어 불가) or 1(클리어 가능)"]:
     # 1-4.
     while queue:
         # 1-4-1. 큐에서 값 추출
-        line, position, time = queue.popleft()
+        line, position, time = queue.pop()
         # 1-4-2.
         for jump, dist in [(0, 1), (0, -1), (1, k)] :
             # 다음 줄, 위치 선정
